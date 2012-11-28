@@ -20,7 +20,7 @@ namespace TangibleUISharp
 		{
 			if (!IsPlaformCompatable ())
 				return;
-			Application.Run (new AppX());
+			Application.Run (new AppX3());
 			return;
 			//Application.Init ();
 

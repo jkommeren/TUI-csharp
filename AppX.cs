@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
+//using Emgu.CV.UI;
 using System.Diagnostics;
 using System.Threading;
 
@@ -32,7 +33,19 @@ namespace TangibleUISharp
 		float yfCirc = 0f; // y of animation circle
 
 		Stopwatch watch; // stopwatch for framerate counter
-		int framecounter = 0; // counter for framerate
+		int framecounter = 0;
+        private TrackBar trackHueMin;
+        private TrackBar trackSatMin;
+        private TrackBar trackValMin;
+        private TrackBar trackHueMax;
+        private TrackBar trackSatMax;
+        private TrackBar trackValMax;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private TrackBar trackSizeMin;
+        private TrackBar trackSizeMax; // counter for framerate
 
 
 
@@ -148,6 +161,11 @@ namespace TangibleUISharp
 				identifiedObjects.Add (this.IdentifyObject (contour, ContourAccuracy));
 			}
 			}
+		if (showWindow) {
+					CvInvoke.cvShowImage ("Capture", frame);
+				//	cvlib.
+					CvInvoke.cvWaitKey (1);
+				}
 
 		
 		}
@@ -281,31 +299,6 @@ namespace TangibleUISharp
 		}
 
 //
-//						processedFrame.Draw (contour, new Bgr (Color.Blue), 5);
-//						if (!circ)
-//							// this object is probably not a circle / round shape
-//							processedFrame.Draw (circle, new Bgr (Color.Purple), 5);
-//						if (circ)
-//							// this object should be a circle
-//							processedFrame.Draw (circle, new Bgr (Color.White), 5);
-//					}
-//
-//
-//					// must draw something or program will crash?
-//						
-//					
-//						PointF centerX = new PointF (1f, 1f);
-//						CircleF circleX = new CircleF (centerX, 20f);
-//					processedFrame.Draw (circleX,new Bgr (Color.Red),1);
-//					//Thread.Sleep (20);
-//				
-//				}
-//
-//			}
-//}
-//
-//
-//
 //			#region display
 //			
 //			try {
@@ -374,5 +367,198 @@ namespace TangibleUISharp
 			
 			//Console.WriteLine(" lo ");
 		}
+
+        private void InitializeComponent()
+        {
+            this.trackHueMin = new System.Windows.Forms.TrackBar();
+            this.trackSatMin = new System.Windows.Forms.TrackBar();
+            this.trackValMin = new System.Windows.Forms.TrackBar();
+            this.trackHueMax = new System.Windows.Forms.TrackBar();
+            this.trackSatMax = new System.Windows.Forms.TrackBar();
+            this.trackValMax = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.trackSizeMin = new System.Windows.Forms.TrackBar();
+            this.trackSizeMax = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.trackHueMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSatMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackValMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackHueMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSatMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackValMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSizeMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSizeMax)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // trackHueMin
+            // 
+            this.trackHueMin.Location = new System.Drawing.Point(12, 12);
+            this.trackHueMin.Name = "trackHueMin";
+            this.trackHueMin.Size = new System.Drawing.Size(104, 45);
+            this.trackHueMin.TabIndex = 0;
+            this.trackHueMin.Scroll += new System.EventHandler(this.trackHueMin_Scroll);
+            // 
+            // trackSatMin
+            // 
+            this.trackSatMin.Location = new System.Drawing.Point(12, 47);
+            this.trackSatMin.Name = "trackSatMin";
+            this.trackSatMin.Size = new System.Drawing.Size(104, 45);
+            this.trackSatMin.TabIndex = 1;
+            this.trackSatMin.Scroll += new System.EventHandler(this.trackSatMin_Scroll);
+            // 
+            // trackValMin
+            // 
+            this.trackValMin.Location = new System.Drawing.Point(12, 80);
+            this.trackValMin.Name = "trackValMin";
+            this.trackValMin.Size = new System.Drawing.Size(104, 45);
+            this.trackValMin.TabIndex = 2;
+            this.trackValMin.Scroll += new System.EventHandler(this.trackValMin_Scroll);
+            // 
+            // trackHueMax
+            // 
+            this.trackHueMax.Location = new System.Drawing.Point(190, 12);
+            this.trackHueMax.Name = "trackHueMax";
+            this.trackHueMax.Size = new System.Drawing.Size(104, 45);
+            this.trackHueMax.TabIndex = 3;
+            this.trackHueMax.Scroll += new System.EventHandler(this.trackHueMax_Scroll);
+            // 
+            // trackSatMax
+            // 
+            this.trackSatMax.Location = new System.Drawing.Point(190, 44);
+            this.trackSatMax.Name = "trackSatMax";
+            this.trackSatMax.Size = new System.Drawing.Size(104, 45);
+            this.trackSatMax.TabIndex = 4;
+            this.trackSatMax.Scroll += new System.EventHandler(this.trackSatMax_Scroll);
+            // 
+            // trackValMax
+            // 
+            this.trackValMax.Location = new System.Drawing.Point(190, 80);
+            this.trackValMax.Name = "trackValMax";
+            this.trackValMax.Size = new System.Drawing.Size(104, 45);
+            this.trackValMax.TabIndex = 5;
+            this.trackValMax.Scroll += new System.EventHandler(this.trackValMax_Scroll);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(116, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(27, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Hue";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(116, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Saturation";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(116, 80);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Value";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(116, 117);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Obj Size";
+            // 
+            // trackSizeMin
+            // 
+            this.trackSizeMin.Location = new System.Drawing.Point(12, 117);
+            this.trackSizeMin.Name = "trackSizeMin";
+            this.trackSizeMin.Size = new System.Drawing.Size(104, 45);
+            this.trackSizeMin.TabIndex = 10;
+            this.trackSizeMin.Scroll += new System.EventHandler(this.trackSizeMin_Scroll);
+            // 
+            // trackSizeMax
+            // 
+            this.trackSizeMax.Location = new System.Drawing.Point(190, 117);
+            this.trackSizeMax.Name = "trackSizeMax";
+            this.trackSizeMax.Size = new System.Drawing.Size(104, 45);
+            this.trackSizeMax.TabIndex = 11;
+            this.trackSizeMax.Scroll += new System.EventHandler(this.trackSizeMax_Scroll);
+            // 
+            // AppX
+            // 
+            this.ClientSize = new System.Drawing.Size(387, 262);
+            this.Controls.Add(this.trackSizeMax);
+            this.Controls.Add(this.trackSizeMin);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.trackValMax);
+            this.Controls.Add(this.trackSatMax);
+            this.Controls.Add(this.trackHueMax);
+            this.Controls.Add(this.trackValMin);
+            this.Controls.Add(this.trackSatMin);
+            this.Controls.Add(this.trackHueMin);
+            this.Name = "AppX";
+            ((System.ComponentModel.ISupportInitialize)(this.trackHueMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSatMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackValMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackHueMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSatMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackValMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSizeMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSizeMax)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        private void trackSizeMax_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackHueMin_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackSatMin_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackValMin_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackSizeMin_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackSatMax_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackHueMax_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackValMax_Scroll(object sender, EventArgs e)
+        {
+
+        }
 	}
 }
