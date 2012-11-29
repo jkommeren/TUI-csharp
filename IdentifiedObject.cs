@@ -19,7 +19,8 @@ namespace TangibleUISharp
 		long lastSeen = 0;
 		bool isnew = true;
 		long timeRenewed = -1;
-		Bgr color = new Bgr(0,0,0);
+		double sizeAcc = 0.80;
+	Bgr color = new Bgr(0,0,0);
 		MCvBox2D boundingBox;
 
 		public IdentifiedObject (int x, int y, double areaSize, bool isCircle, bool isSquare, int ID, long curTime)
@@ -45,23 +46,27 @@ namespace TangibleUISharp
 			return isnew;
 		}
 
-		public bool liesWithin (int x, int y, bool recentlyChanged, int accuracy, long curTime)
+		public bool liesWithin (int x, int y, bool recentlyChanged, int accuracy, long curTime, double curSize)
 		{
 			if (recentlyChanged || isnew) {
 
-				//be alot less sensitive with x and y 
+				//be alot less sensitive with x and y
+				// do a size check only when this is not the case
+
 				if (locX - (2 * accuracy) < x && locX + (accuracy * 2) > x) {
 					if (locY - (2 * accuracy) < y && locY + (accuracy * 2) > y) {
 						// rough method now, perhaps we can smooth this out in the future
 						locX = x;
 						locY = y;
 						lastSeen = curTime;
+						size = curSize;
 						// if x and y are within area
 						// adjust x and y
 						// update lastSeen
 						if (!isnew) {
 					// wipe data
 					isnew = true;
+							// make sure this part is triggered for the next couple of frames
 					timeRenewed = curTime;
 				}
 
@@ -75,6 +80,8 @@ namespace TangibleUISharp
 
 			} else if (locX - accuracy < x && locX + accuracy > x) {
 				if (locY - accuracy < y && locY + accuracy > y) {
+					if (curSize > sizeAcc * size && curSize < size / sizeAcc)
+					{
 					// rough method now, perhaps we can smooth this out in the future
 					locX = x;
 					locY = y;
@@ -83,6 +90,7 @@ namespace TangibleUISharp
 					// adjust x and y
 					// update lastSeen
 					return true;
+					}
 				}
 				return false;
 			} else {
@@ -161,11 +169,11 @@ namespace TangibleUISharp
 
 		public Point getPosition (long curTime)
 		{
-			if (curTime - timeRenewed > 2000) {
+			if (curTime - timeRenewed > 1000) {
 				isnew = false;
 			}
-			// if seen in the last 2 seconds
-			if (curTime - lastSeen < 2000) {
+			// if seen in the last 1 second
+			if (curTime - lastSeen < 1000) {
 				return new Point (locX, locY);
 			} else {
 				//Console.WriteLine ("(internal) marked for removal");

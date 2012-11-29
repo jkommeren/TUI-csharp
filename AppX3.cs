@@ -179,7 +179,7 @@ namespace TangibleUISharp
 						foreach (IdentifiedObject io in identifiedObjects) {
 						// calculate center point
 						// accuracy is in pixels, 10 for now
-						if (io.liesWithin ((int)dx, (int)dy, recentlyChanged, maxPixTravel, timeinms)) {
+						if (io.liesWithin ((int)dx, (int)dy, recentlyChanged, maxPixTravel, timeinms, contour.Area)) {
 							found = true;
 							//if (showWindow) Console.WriteLine("existing object");
 							break;
